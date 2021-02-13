@@ -15,7 +15,7 @@ router.get('/:stonk', function (req, res, next) {
         }
     })
         .then(response => response.json())
-        .then(json => console.log(json));
+        .then(json => res.send(json));
 });
 
 module.exports = router;
