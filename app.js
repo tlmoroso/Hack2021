@@ -5,8 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var indexRouter = require('./routes/index');
-var buttsRouter = require('./routes/butts');
 var stonksRouter = require('./routes/stonkiepoos');
+const rateLimit = require("express-rate-limit");
 
 var app = express();
 
@@ -19,10 +19,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors())
+app.use(cors());
+
+// Rate Limiting for Yahoo Finance APIS
+const autoCompleteLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 5
+});
+
+app.use('/stonkiepoos/', autoCompleteLimiter);
 
 app.use('/', indexRouter);
-app.use('/butts', buttsRouter);
 app.use('/stonkiepoos', stonksRouter);
 
 app.use(express.static('public'));
