@@ -35,7 +35,7 @@ router.get('/:stonk', function (req, res, next) {
 });
 
 router.get('/:stonk/historicaldata', function (req, res, next) {
-    fetch("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v3/get-historical-data?symbol=AMRN&region=US", {
+    fetch("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v3/get-historical-data?symbol=" + req.params.stonk + "&region=US", {
         "method": "GET",
         "headers": {
             "x-rapidapi-key": "62b43b5606mshc426c20b0c77dc9p170f71jsn401e7036ea70",
